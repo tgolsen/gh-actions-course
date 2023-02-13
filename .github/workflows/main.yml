@@ -1,20 +1,15 @@
 name: CI
 
-# Controls when the workflow will run
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  lint:
-    # The type of runner that the job will run on
+  test:
     runs-on: ubuntu-latest
-    #name: Linting / JS
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -31,6 +26,7 @@ jobs:
         run: npm test
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
