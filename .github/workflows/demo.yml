@@ -15,11 +15,15 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: my-artifact
-          path: package-lock.json
+          name: dist-files
+          path: dist
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Get build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-files
       - name: Deploy
         run: echo "i'm deploying ..."
